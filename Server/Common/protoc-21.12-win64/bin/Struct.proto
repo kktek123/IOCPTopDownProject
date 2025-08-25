@@ -1,0 +1,298 @@
+syntax = "proto3";
+package Protocol;
+
+import "Enum.proto";
+
+message PosInfo
+{
+	uint64 object_id = 1;
+	float x = 2;
+	float y = 3;
+	float z = 4;
+	float yaw = 5;
+	float pitch = 6;
+	MoveState state = 7;
+	SkillState skill = 8;
+}
+
+message HitInfo
+{
+	uint64 object_id = 1;
+	uint64 causer_id = 2;
+	float damage = 3;
+	float hit_yaw = 4;
+	float hit_back = 5;
+	float hit_stun = 6;
+}
+
+message MeleeAttackInfo
+{
+	uint64 object_id = 1;
+	float damage = 2;
+	float yaw = 3;
+}
+
+message ProjectileInfo
+{
+	uint64 causer_id = 1;
+	float spawn_x = 2;
+	float spawn_y = 3;
+	float spawn_z = 4;
+	float damage = 5;
+	float shoot_yaw = 6;
+}
+
+message StatusInfo
+{
+	uint64 object_id = 1;
+	float maxhp = 2;
+	float hp = 3;
+	float maxmp = 4;
+	float mp = 5;
+	float atk = 6;
+	float def = 7;
+}
+
+message ClassInfo
+{
+	uint64 object_id = 1;
+	PlayerType player_type = 2;
+}
+
+message ObjectInfo
+{
+	uint64 object_id = 1;
+	ObjectType object_type = 2;
+	ClassInfo player_type = 3;
+	CreatureType creature_type = 4;
+	PosInfo pos_info = 5;
+	StatusInfo status_info = 6;
+	AbilityInputInfo input_info = 7;
+	LevelPointInfo level_info = 8;
+}
+
+message CreatureInfo
+{
+	uint64 object_id = 1;
+	uint32 level = 2;
+	PosInfo pos_info = 3;
+	StatusInfo status_info = 4;
+	CreatureType creature_type = 5;
+}
+
+message PlayerInfo
+{
+	uint64 object_id = 1;
+	uint32 level = 2;
+	ClassInfo player_type = 3;
+	PosInfo pos_info = 4;
+	StatusInfo status_info = 5;
+	LevelPointInfo level_info = 6;
+	AbilityInputInfo input_info = 7;
+	InventoryList inventory_list = 8;
+	EquipmentList equipment_list = 9;
+	string player_id = 10;
+	string player_name = 11;
+	EquipStateInfo equip_state = 12;
+	uint64 gold = 13;
+}
+
+message MonsterInfo
+{
+	uint64 object_id = 1;
+	uint32 level = 2;
+	PosInfo pos_info = 4;
+	StatusInfo status_info = 5;
+	AbilityInputInfo input_info = 6;
+	MonsterType type = 7;
+}
+
+message AbilityInputInfo
+{
+	uint64 object_id = 1;
+	string tag = 2;
+	InputState input = 3;
+}
+
+message EquipStateInfo
+{
+	uint64 object_id = 1;
+	EquipState equip_state = 2;
+}
+
+message AIInfo
+{
+	uint64 object_id = 1;
+	uint64 targetId_id = 2;
+	bool can_attack = 3;
+	float Patrol_x = 4;
+	float Patrol_y = 5;
+	float Patrol_z = 6;
+}
+
+message InventoryList
+{
+	uint64 object_id = 1;
+	repeated ItemInfo list = 2;
+}
+
+message EquipmentList
+{
+	uint64 object_id = 1;
+	repeated ItemInfo list = 2;
+}
+
+message ItemInfo
+{
+	uint64 object_id = 1;
+	uint64 item_id = 2;
+	uint64 gold = 3;
+	ItemType item_type = 4;
+	ItemRarity item_rarity = 5;
+	ItemCustomType custom_type = 6;
+	EquipType equip_type = 7;
+	uint64 item_count = 8;
+	string item_name = 9;
+	string item_visual_name = 10;
+	float atk = 11;
+	float def = 12;
+	float delay = 13;
+	float range = 14;
+}
+
+message ObjectItemInfo
+{
+	uint64 object_id = 1;
+	ItemInfo info = 2;
+	PosInfo pos_info = 3;
+}
+
+message ItemBoxInfo
+{ 
+	uint64 object_id = 1;
+	ItemBoxType box_type = 2;
+	ItemBoxState box_state = 3;
+	InventoryList list = 4;
+	PosInfo pos_info = 5;
+}
+
+message LevelPointInfo
+{
+	uint64 object_id = 1;
+	uint32 level = 2;
+	uint32 skill_point = 3;
+}
+
+message ShopItemInfo
+{
+	ItemInfo item = 1;
+	uint32 can_buy_count = 2;
+}
+
+message ShopInfo
+{
+	uint32 list_count = 1;
+	repeated ShopItemInfo list = 2;
+	uint32 refresh_count = 3;
+}
+
+message MailInfo
+{
+	string main_title = 1;
+	string text = 2;
+	repeated ItemInfo item = 3;
+	bool is_read = 4;
+}
+
+message MailBoxInfo
+{
+	repeated MailInfo mail = 1;
+}
+
+//message GameplayAttributeData
+//{
+//	float BaseValue = 1;
+//	float CurrentValue = 2;
+//}
+//
+//message CombatSet
+//{
+//	GameplayAttributeData BaseDamage = 1;
+//	GameplayAttributeData BaseHealth = 2;
+//	GameplayAttributeData BaseMana = 3;
+//	GameplayAttributeData BaseStamina = 4;
+//	GameplayAttributeData MoveSpeed = 5;
+//	GameplayAttributeData MoveSpeedPercent = 6;
+//	GameplayAttributeData AttackSpeedPercent = 7;
+//	GameplayAttributeData DrainLifePercent = 8;
+//	GameplayAttributeData DamageReductionPercent = 9;
+//	GameplayAttributeData Strength = 10;
+//	GameplayAttributeData Defense = 11;
+//	GameplayAttributeData Vigor = 12;
+//	GameplayAttributeData Agility = 13;
+//	GameplayAttributeData Resourcefulness = 14;
+//	GameplayAttributeData ActiveEffectDuration = 15;
+//}
+//
+//message VitalSet
+//{
+//	GameplayAttributeData Health = 1;
+//	GameplayAttributeData MaxHealth = 2;
+//	GameplayAttributeData Mana = 3;
+//	GameplayAttributeData MaxMana = 4;
+//	GameplayAttributeData Stamina = 5;
+//	GameplayAttributeData MaxStamina = 6;
+//}
+//
+//message EquipManager
+//{
+//	//FD1EquipList EquipList;
+//
+//	//EEquipState CurrentEquipState = EEquipState::Count;
+//
+//	//bool bShouldHiddenEquipments = false;
+//
+//}
+//
+//message EquipmentBase
+//{	
+//	uint32 TemplateID = 1;
+//	EquipmentSlotType EquipmentSlotType = 2;
+//	bool CanBlock = 3;
+//}
+//
+//message LyraReplicatedAcceleration
+//{	
+//	uint8 AccelXYRadians = 1;
+//	uint8 AccelXYMagnitude = 2;
+//	uint8 AccelZ = 3;
+//}
+//
+//message ItemInstance
+//{
+//	//UPROPERTY(Replicated)
+//	//int32 ItemTemplateID = INDEX_NONE;
+//	//
+//	//UPROPERTY(Replicated)
+//	//EItemRarity ItemRarity = EItemRarity::Poor;
+//	//
+//	//UPROPERTY(Replicated)
+//	//FD1GameplayTagStackContainer StatContainer;
+//
+//}
+//
+//message etc
+//{
+//	DeathState DeathState = 1;
+//	//	UPROPERTY(ReplicatedUsing=OnRep_CurrentExperience)
+//	//TObjectPtr<const ULyraExperienceDefinition> CurrentExperience;
+//	//	float ServerFPS;
+//	//	UPROPERTY(Transient, ReplicatedUsing = OnRep_RecorderPlayerState)
+//	//TObjectPtr<APlayerState> RecorderPlayerState;
+//
+//	//	FD1EquipmentList EquipmentList;
+//	//FD1InventoryList InventoryList;
+//	
+//	//TArray<bool> SlotChecks;
+//
+//}

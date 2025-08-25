@@ -1,0 +1,3 @@
+version,ItemId,Itemname,ItemVisualname,ItemType,ItemRarity,EquipType,gold,Atk,Def
+1,ulong,string,string,byte,byte,byte,ulong,ushort_t,ushort_t
+,1,Dagger,Dagger,1,1,1,100,10,3

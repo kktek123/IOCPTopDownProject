@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-TestFeatureRuntime.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Unreal porject\MMO\S1\Intermediate\Build\Win64\x64\S1Editor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.obj"
+"C:\Unreal porject\MMO\S1\Plugins\GameFeatures\TestFeature\Intermediate\Build\Win64\x64\UnrealEditor\Development\TestFeatureRuntime\TestFeatureRuntimeModule.cpp.obj"
+"C:\Unreal porject\MMO\S1\Plugins\GameFeatures\TestFeature\Intermediate\Build\Win64\x64\UnrealEditor\Development\TestFeatureRuntime\Default.rc2.res"
+/OUT:"C:\Unreal porject\MMO\S1\Plugins\GameFeatures\TestFeature\Intermediate\Build\Win64\x64\UnrealEditor\Development\TestFeatureRuntime\UnrealEditor-TestFeatureRuntime.lib"

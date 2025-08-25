@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\unreal porject\\mmo\\s1\\plugins\\gamefeatures\\testfeature\\source\\testfeatureruntime\\private\\testfeatureruntimemodule.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\unreal porject\\mmo\\s1\\intermediate\\build\\win64\\x64\\s1editor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "c:\\unreal porject\\mmo\\s1\\plugins\\gamefeatures\\testfeature\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\testfeatureruntime\\definitions.testfeatureruntime.h",
+            "c:\\unreal porject\\mmo\\s1\\plugins\\gamefeatures\\testfeature\\source\\testfeatureruntime\\public\\testfeatureruntimemodule.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

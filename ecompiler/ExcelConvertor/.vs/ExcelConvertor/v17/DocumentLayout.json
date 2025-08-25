@@ -1,0 +1,185 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|c:\\unreal porject\\mmo\\ecompiler\\excelconvertor\\excel\\managerexcelsheet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|solutionrelative:excel\\managerexcelsheet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\codemaker\\codemakermethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|solutionrelative:codemaker\\codemakermethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\exceltypes\\tmap\u00602.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|solutionrelative:exceltypes\\tmap\u00602.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\exceltypes\\etypecode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|solutionrelative:exceltypes\\etypecode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\codemaker\\codemakerinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|solutionrelative:codemaker\\codemakerinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\exceltypes\\tdouble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0B6BC50-BE82-4E80-8966-9D69796B8D72}|ExcelConvertor.csproj|solutionrelative:exceltypes\\tdouble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{28836128-fc2c-11d2-a433-00c04f72d18a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{68487888-204a-11d3-87eb-00c04f7971a5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TMap\u00602.cs",
+              "DocumentMoniker": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\ExcelTypes\\TMap\u00602.cs",
+              "RelativeDocumentMoniker": "ExcelTypes\\TMap\u00602.cs",
+              "ToolTip": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\ExcelTypes\\TMap\u00602.cs",
+              "RelativeToolTip": "ExcelTypes\\TMap\u00602.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T11:29:42.573Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "eTypeCode.cs",
+              "DocumentMoniker": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\ExcelTypes\\eTypeCode.cs",
+              "RelativeDocumentMoniker": "ExcelTypes\\eTypeCode.cs",
+              "ToolTip": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\ExcelTypes\\eTypeCode.cs",
+              "RelativeToolTip": "ExcelTypes\\eTypeCode.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T11:26:05.014Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "app.config",
+              "DocumentMoniker": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\app.config",
+              "RelativeDocumentMoniker": "app.config",
+              "ToolTip": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\app.config",
+              "RelativeToolTip": "app.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-06-30T11:18:48.907Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CodeMakerMethods.cs",
+              "DocumentMoniker": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\CodeMaker\\CodeMakerMethods.cs",
+              "RelativeDocumentMoniker": "CodeMaker\\CodeMakerMethods.cs",
+              "ToolTip": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\CodeMaker\\CodeMakerMethods.cs",
+              "RelativeToolTip": "CodeMaker\\CodeMakerMethods.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T11:18:43.245Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ManagerExcelSheet.cs",
+              "DocumentMoniker": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\Excel\\ManagerExcelSheet.cs",
+              "RelativeDocumentMoniker": "Excel\\ManagerExcelSheet.cs",
+              "ToolTip": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\Excel\\ManagerExcelSheet.cs",
+              "RelativeToolTip": "Excel\\ManagerExcelSheet.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAqwDAAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T10:50:32.584Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TDouble.cs",
+              "DocumentMoniker": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\ExcelTypes\\TDouble.cs",
+              "RelativeDocumentMoniker": "ExcelTypes\\TDouble.cs",
+              "ToolTip": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\ExcelTypes\\TDouble.cs",
+              "RelativeToolTip": "ExcelTypes\\TDouble.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T10:48:04.237Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CodeMakerInfo.cs",
+              "DocumentMoniker": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\CodeMaker\\CodeMakerInfo.cs",
+              "RelativeDocumentMoniker": "CodeMaker\\CodeMakerInfo.cs",
+              "ToolTip": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\CodeMaker\\CodeMakerInfo.cs",
+              "RelativeToolTip": "CodeMaker\\CodeMakerInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T10:47:00.705Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "AssemblyInfo.cs",
+              "ToolTip": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\AssemblyInfo.cs",
+              "RelativeToolTip": "AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T10:43:48.81Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Unreal porject\\MMO\\ecompiler\\ExcelConvertor\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T10:43:45.136Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

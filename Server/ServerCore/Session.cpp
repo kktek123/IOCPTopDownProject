@@ -1,0 +1,345 @@
+#include "pch.h"
+#include "Session.h"
+#include "SocketUtils.h"
+#include "Service.h"
+
+/*--------------
+	Session
+---------------*/
+
+Session::Session() : _recvBuffer(BUFFER_SIZE)
+{
+	_socket = SocketUtils::CreateSocket();
+}
+
+Session::~Session()
+{
+	SocketUtils::Close(_socket);
+}
+
+//멀티 스레드 프로그래밍으로 여러유저에게 수신할때 버퍼관리가 힘들수 있다.
+void Session::Send(SendBufferRef sendBuffer)
+{
+	if (IsConnected() == false)
+		return;
+
+	bool registerSend = false;
+
+	// 현재 RegisterSend가 걸리지 않은 상태라면, 걸어준다
+	{
+		WRITE_LOCK;
+
+		//수신버퍼를 선입선출방식으로 처리하기 위해 큐에 넣는다.
+		_sendQueue.push(sendBuffer);
+
+		//수신데이터가 망가지지 않게하기위해 _sendRegistered로 막아두고 수신이 완료되면 푼다.
+		if (_sendRegistered.exchange(true) == false)
+			registerSend = true;
+
+		if (registerSend)
+			RegisterSend();
+	}
+}
+
+bool Session::Connect()
+{
+	return RegisterConnect();
+}
+
+void Session::Disconnect(const WCHAR* cause)
+{
+	if (_connected.exchange(false) == false)
+		return;
+
+	// TEMP
+	std::wcout << "Disconnect : " << cause << std::endl;
+
+	RegisterDisconnect();
+}
+
+HANDLE Session::GetHandle()
+{
+	return reinterpret_cast<HANDLE>(_socket);
+}
+
+void Session::Dispatch(IocpEvent* iocpEvent, int32 numOfBytes)
+{
+	switch (iocpEvent->eventType)
+	{
+	case EventType::Connect:
+		ProcessConnect();
+		break;
+	case EventType::Disconnect:
+		ProcessDisconnect();
+		break;
+	case EventType::Recv:
+		ProcessRecv(numOfBytes);
+		break;
+	case EventType::Send:
+		ProcessSend(numOfBytes);
+		break;
+	default:
+		break;
+	}
+}
+
+bool Session::RegisterConnect()
+{
+	if (IsConnected())
+		return false;
+
+	if (GetService()->GetServiceType() != ServiceType::Client)
+		return false;
+
+	if (SocketUtils::SetReuseAddress(_socket, true) == false)
+		return false;
+	//남는 포트번호 0번에 주소를 바인드한다.
+	if (SocketUtils::BindAnyAddress(_socket, 0) == false)
+		return false;
+
+	_connectEvent.Init();
+	_connectEvent.owner = shared_from_this(); // ADD_REF
+
+	DWORD numOfBytes = 0;
+	SOCKADDR_IN sockAddr = GetService()->GetNetAddress().GetSockAddr();
+	/*LPFN_CONNECTEX: Windows 전용 고급 소켓 함수로, 비동기 방식으로 TCP 연결을 설정하면서 동시에 데이터를 전송할 수 있는 기능을 제공합니다.*/
+	if (false == SocketUtils::ConnectEx(_socket, reinterpret_cast<SOCKADDR*>(&sockAddr), sizeof(sockAddr), nullptr, 0, &numOfBytes, &_connectEvent))
+	{
+		int32 errorCode = ::WSAGetLastError();
+		if (errorCode != WSA_IO_PENDING)
+		{
+			_connectEvent.owner = nullptr; // RELEASE_REF
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool Session::RegisterDisconnect()
+{
+	_disconnectEvent.Init();
+	_disconnectEvent.owner = shared_from_this(); // ADD_REF
+
+	if (false == SocketUtils::DisconnectEx(_socket, &_disconnectEvent, TF_REUSE_SOCKET, 0))
+	{
+		int32 errorCode = ::WSAGetLastError();
+		if (errorCode != WSA_IO_PENDING)
+		{
+			_disconnectEvent.owner = nullptr; // RELEASE_REF
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void Session::RegisterRecv()
+{
+	if (IsConnected() == false)
+		return;
+
+	_recvEvent.Init();
+	_recvEvent.owner = shared_from_this(); // ADD_REF
+
+	WSABUF wsaBuf;
+	wsaBuf.buf = reinterpret_cast<char*>(_recvBuffer.WritePos());//업데이트될 메모리 위치
+	wsaBuf.len = _recvBuffer.FreeSize();//업데이트될 버퍼의 남는 크기
+
+	DWORD numOfBytes = 0;
+	DWORD flags = 0;
+	//IOCP 수신함수 실행해서 비동기 IO를 완료합니다.
+	if (SOCKET_ERROR == ::WSARecv(_socket, &wsaBuf, 1, OUT &numOfBytes, OUT &flags, &_recvEvent, nullptr))
+	{
+		int32 errorCode = ::WSAGetLastError();
+		if (errorCode != WSA_IO_PENDING)
+		{
+			HandleError(errorCode);
+			_recvEvent.owner = nullptr; // RELEASE_REF
+		}
+	}
+}
+
+void Session::RegisterSend()
+{
+	if (IsConnected() == false)
+		return;
+
+	_sendEvent.Init();
+	_sendEvent.owner = shared_from_this(); // ADD_REF
+
+	// 보낼 데이터를 sendEvent에 등록
+	{
+		int32 writeSize = 0;
+		while (_sendQueue.empty() == false)
+		{
+			SendBufferRef sendBuffer = _sendQueue.front();
+
+			writeSize += sendBuffer->WriteSize();
+
+			_sendQueue.pop();
+			_sendEvent.sendBuffers.push_back(sendBuffer);
+		}
+	}
+
+	// Scatter-Gather (흩어져 있는 데이터들을 모아서 한 방에 보낸다)
+	std::vector<WSABUF> wsaBufs;
+	wsaBufs.reserve(_sendEvent.sendBuffers.size());
+	for (SendBufferRef sendBuffer : _sendEvent.sendBuffers)
+	{
+		WSABUF wsaBuf;
+		wsaBuf.buf = reinterpret_cast<char*>(sendBuffer->Buffer());
+		wsaBuf.len = static_cast<LONG>(sendBuffer->WriteSize());
+		wsaBufs.push_back(wsaBuf);
+	}
+
+	DWORD numOfBytes = 0;
+	//IOCP 송신함수 실행,실패하면 에러코드를 반환하고 수신이벤트 참조를 풉니다.
+	if (SOCKET_ERROR == ::WSASend(_socket, wsaBufs.data(), static_cast<DWORD>(wsaBufs.size()), OUT &numOfBytes, 0, &_sendEvent, nullptr))
+	{
+		int32 errorCode = ::WSAGetLastError();
+		if (errorCode != WSA_IO_PENDING)
+		{
+			HandleError(errorCode);
+			_sendEvent.owner = nullptr; // RELEASE_REF
+			_sendEvent.sendBuffers.clear(); // RELEASE_REF
+			_sendRegistered.store(false);
+		}
+	}
+}
+
+void Session::ProcessConnect()
+{
+	_connectEvent.owner = nullptr; // RELEASE_REF
+
+	_connected.store(true);
+
+	// 세션 등록
+	GetService()->AddSession(GetSessionRef());
+
+	// 컨텐츠 코드에서 재정의
+	OnConnected();
+
+	// 수신 등록
+	RegisterRecv();
+}
+
+void Session::ProcessDisconnect()
+{
+	_disconnectEvent.owner = nullptr; // RELEASE_REF
+
+	OnDisconnected(); // 컨텐츠 코드에서 재정의
+	GetService()->ReleaseSession(GetSessionRef());
+}
+
+void Session::ProcessRecv(int32 numOfBytes)
+{
+	_recvEvent.owner = nullptr; // RELEASE_REF
+
+	//수신 패킷 데이터가 비어 있으면 연결을 끊습니다.
+	if (numOfBytes == 0)
+	{
+		Disconnect(L"Recv 0");
+		return;
+	}
+
+	//수신 패킷 데이터가 64KB보다 크면 연결을 끊습니다.
+	if (_recvBuffer.OnWrite(numOfBytes) == false)
+	{
+		Disconnect(L"OnWrite Overflow");
+		return;
+	}
+
+	int32 dataSize = _recvBuffer.DataSize();//총 패킷 데이터 크기
+	int32 processLen = OnRecv(_recvBuffer.ReadPos(), dataSize); // 컨텐츠 코드에서 재정의
+	
+	//수신 패킷 데이터의 명시된 크기가 실제 받은 크기 보다 크면 연결을 끊습니다.
+	//받아야될 크기보다 못받은 상태가 되었을때
+	if (processLen < 0 || dataSize < processLen || _recvBuffer.OnRead(processLen) == false)
+	{
+		Disconnect(L"OnRead Overflow");
+		return;
+	}
+	
+	// 커서 정리
+	_recvBuffer.Clean();
+
+	// 수신 등록
+	RegisterRecv();
+}
+
+void Session::ProcessSend(int32 numOfBytes)
+{
+	_sendEvent.owner = nullptr; // RELEASE_REF
+	_sendEvent.sendBuffers.clear(); // RELEASE_REF
+
+	if (numOfBytes == 0)
+	{
+		Disconnect(L"Send 0");
+		return;
+	}
+
+	// 컨텐츠 코드에서 재정의
+	OnSend(numOfBytes);
+
+	//다른 스레드가 _sendQueue에 접근하지 못하도록 락을 걸어주고 작업을 합니다.
+	WRITE_LOCK;
+
+	if (_sendQueue.empty())
+		_sendRegistered.store(false);
+	else
+		RegisterSend();
+}
+
+void Session::HandleError(int32 errorCode)
+{
+	switch (errorCode)
+	{
+	case WSAECONNRESET:
+	case WSAECONNABORTED:
+		Disconnect(L"HandleError");
+		break;
+	default:
+		// TODO : Log
+		std::cout << "Handle Error : " << errorCode << std::endl;
+		break;
+	}
+}
+
+/*-----------------
+	PacketSession
+------------------*/
+
+PacketSession::PacketSession()
+{
+}
+
+PacketSession::~PacketSession()
+{
+}
+
+// [size(2)][id(2)][data....][size(2)][id(2)][data....]
+int32 PacketSession::OnRecv(BYTE* buffer, int32 len)
+{
+	int32 processLen = 0;
+
+	while (true)
+	{
+		int32 dataSize = len - processLen;
+		// 최소한 헤더는 파싱할 수 있어야 한다
+		if (dataSize < sizeof(PacketHeader))
+			break;
+
+		PacketHeader header = *(reinterpret_cast<PacketHeader*>(&buffer[processLen]));
+		// 헤더에 기록된 패킷 크기를 파싱할 수 있어야 한다
+		if (dataSize < header.size)
+			break;
+
+		// 클라이언트에서 받아온 패킷을 조립하고 함수를 실행한다.// 조립 성공
+		OnRecvPacket(&buffer[processLen], header.size);
+
+		processLen += header.size;
+	}
+	//헤더에 명시된 크기를 리턴합니다.
+	return processLen;
+}

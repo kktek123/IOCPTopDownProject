@@ -1,0 +1,7 @@
+C:\Unreal porject\MMO\ecompiler\ExcelConvertor\obj\Debug\ExcelConvertor.csproj.AssemblyReference.cache
+C:\Unreal porject\MMO\ecompiler\ExcelConvertor\obj\Debug\ExcelConvertor.csproj.CoreCompileInputs.cache
+C:\Unreal porject\MMO\ecompiler\ExcelConvertor\bin\Debug\ExcelConvertor.exe.config
+C:\Unreal porject\MMO\ecompiler\ExcelConvertor\bin\Debug\ExcelConvertor.exe
+C:\Unreal porject\MMO\ecompiler\ExcelConvertor\bin\Debug\ExcelConvertor.pdb
+C:\Unreal porject\MMO\ecompiler\ExcelConvertor\obj\Debug\ExcelConvertor.exe
+C:\Unreal porject\MMO\ecompiler\ExcelConvertor\obj\Debug\ExcelConvertor.pdb

@@ -1,0 +1,8 @@
+{
+	"BuildId": "33043543",
+	"Modules": 
+	{
+		"S1": "UnrealEditor-S1.dll",
+		"TestModule": "UnrealEditor-TestModule.dll"
+	}
+}
